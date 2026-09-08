@@ -1,5 +1,5 @@
 {
-  "name": "mini-clinic-backend",
+  "name": "backend",
   "version": "1.0.0",
   "description": "Mini Clinic Information System - Backend (Node.js + Express + MySQL)",
   "main": "server.js",
