@@ -19,9 +19,8 @@ DROP TABLE IF EXISTS users;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
--- ----------------------------------------------------------------------
--- Users (Administrator, Dokter, Petugas Pendaftaran)
--- ----------------------------------------------------------------------
+-- User (Administrator, Dokter, Petugas Pendaftaran)
+
 CREATE TABLE users (
   id            INT UNSIGNED NOT NULL AUTO_INCREMENT,
   name          VARCHAR(120) NOT NULL,
@@ -36,13 +35,12 @@ CREATE TABLE users (
   UNIQUE KEY uq_users_username (username)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------
 -- Poli / Poliklinik (menentukan prefix nomor antrean)
--- ----------------------------------------------------------------------
+
 CREATE TABLE polis (
   id            INT UNSIGNED NOT NULL AUTO_INCREMENT,
   name          VARCHAR(80) NOT NULL,
-  code          CHAR(1)     NOT NULL,          -- prefix antrean, cth: A, B, C
+  code          CHAR(1)     NOT NULL,          
   created_at    DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   UNIQUE KEY uq_polis_code (code),
@@ -52,13 +50,12 @@ CREATE TABLE polis (
 ALTER TABLE users
   ADD CONSTRAINT fk_users_poli FOREIGN KEY (poli_id) REFERENCES polis(id) ON DELETE SET NULL;
 
--- ----------------------------------------------------------------------
 -- Pasien (Master Data)
--- ----------------------------------------------------------------------
+
 CREATE TABLE patients (
   id                 INT UNSIGNED NOT NULL AUTO_INCREMENT,
   medical_record_no  VARCHAR(20) NOT NULL,      -- auto generate cth: RM-000001
-  nik                VARCHAR(20) NOT NULL,       -- tidak boleh duplikat
+  nik                VARCHAR(20) NOT NULL,       
   name               VARCHAR(120) NOT NULL,
   gender             ENUM('L','P') NOT NULL,     -- L = Laki-laki, P = Perempuan
   birth_date         DATE NOT NULL,
@@ -72,9 +69,8 @@ CREATE TABLE patients (
   KEY idx_patients_name (name)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------
 -- Pendaftaran Kunjungan
--- ----------------------------------------------------------------------
+
 CREATE TABLE registrations (
   id            INT UNSIGNED NOT NULL AUTO_INCREMENT,
   patient_id    INT UNSIGNED NOT NULL,
@@ -93,14 +89,13 @@ CREATE TABLE registrations (
   CONSTRAINT fk_reg_poli    FOREIGN KEY (poli_id)    REFERENCES polis(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------
--- Antrean
--- ----------------------------------------------------------------------
+-- Antrian
+
 CREATE TABLE queues (
   id              INT UNSIGNED NOT NULL AUTO_INCREMENT,
   registration_id INT UNSIGNED NOT NULL,
   poli_id         INT UNSIGNED NOT NULL,
-  queue_number    VARCHAR(10) NOT NULL,          -- cth: A001
+  queue_number    VARCHAR(10) NOT NULL,         
   queue_date      DATE NOT NULL,
   status          ENUM('menunggu','dipanggil','selesai','dilewati') NOT NULL DEFAULT 'menunggu',
   called_at       DATETIME NULL,
@@ -113,24 +108,26 @@ CREATE TABLE queues (
   CONSTRAINT fk_queue_poli FOREIGN KEY (poli_id) REFERENCES polis(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------
 -- Rekam Medis / Pemeriksaan (SOAP)
--- ----------------------------------------------------------------------
 CREATE TABLE medical_records (
   id              INT UNSIGNED NOT NULL AUTO_INCREMENT,
   registration_id INT UNSIGNED NOT NULL,
   patient_id      INT UNSIGNED NOT NULL,
   doctor_id       INT UNSIGNED NOT NULL,
+  
   -- Subjective
   subjective      TEXT NULL,                     -- keluhan pasien
+  
   -- Objective (tanda vital)
   blood_pressure  VARCHAR(20) NULL,              -- tekanan darah, cth 120/80
   temperature     DECIMAL(4,1) NULL,             -- suhu tubuh (C)
   weight          DECIMAL(5,2) NULL,             -- berat badan (kg)
   height          DECIMAL(5,2) NULL,             -- tinggi badan (cm)
   pulse           INT NULL,                      -- nadi (bpm)
+  
   -- Assessment
   diagnosis       TEXT NULL,
+  
   -- Plan
   therapy_plan    TEXT NULL,
   created_at      DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -142,9 +139,8 @@ CREATE TABLE medical_records (
   CONSTRAINT fk_mr_doctor  FOREIGN KEY (doctor_id)  REFERENCES users(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------
--- Tindakan Medis (relasi ke rekam medis)
--- ----------------------------------------------------------------------
+-- Tindakan Medis 
+
 CREATE TABLE medical_actions (
   id                INT UNSIGNED NOT NULL AUTO_INCREMENT,
   medical_record_id INT UNSIGNED NOT NULL,
@@ -154,9 +150,8 @@ CREATE TABLE medical_actions (
   CONSTRAINT fk_ma_mr FOREIGN KEY (medical_record_id) REFERENCES medical_records(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------
 -- Resep Obat
--- ----------------------------------------------------------------------
+
 CREATE TABLE prescriptions (
   id                INT UNSIGNED NOT NULL AUTO_INCREMENT,
   medical_record_id INT UNSIGNED NOT NULL,
@@ -172,16 +167,13 @@ CREATE TABLE prescription_items (
   id              INT UNSIGNED NOT NULL AUTO_INCREMENT,
   prescription_id INT UNSIGNED NOT NULL,
   drug_name       VARCHAR(150) NOT NULL,
-  dosage          VARCHAR(80) NULL,              -- cth: 500mg
-  instruction     VARCHAR(150) NULL,             -- aturan pakai, cth: 3x1 sesudah makan
+  dosage          VARCHAR(80) NULL,              
+  instruction     VARCHAR(150) NULL,             -- aturan pakai, contoh: 2x1 sesudah makan
   quantity        INT NULL,
   PRIMARY KEY (id),
   CONSTRAINT fk_pi_presc FOREIGN KEY (prescription_id) REFERENCES prescriptions(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- ----------------------------------------------------------------------
--- Seed data awal untuk Poli
--- ----------------------------------------------------------------------
 INSERT INTO polis (name, code) VALUES
   ('Poli Umum', 'A'),
   ('Poli Gigi', 'B'),

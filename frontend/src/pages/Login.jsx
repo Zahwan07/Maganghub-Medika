@@ -37,14 +37,11 @@ export default function Login() {
 
   return (
     <div className="min-h-screen grid lg:grid-cols-2 bg-slate-50">
-      {/* Left brand panel */}
       <div className="hidden lg:flex flex-col justify-between bg-slate-900 text-white p-12 relative overflow-hidden">
         <div className="absolute -top-24 -right-24 h-72 w-72 rounded-full bg-sky-500/20 blur-3xl" />
         <div className="absolute bottom-0 -left-20 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
         <div className="flex items-center gap-3 relative">
-          <div className="h-11 w-11 rounded-xl bg-sky-500 flex items-center justify-center">
-            <HeartPulse className="h-6 w-6" />
-          </div>
+          <img src="/inova192.png" alt="Klinik Pratama Logo" className="h-11 w-11 rounded-xl object-contain" />
           <span className="font-heading font-bold text-lg">Klinik Pratama</span>
         </div>
         <div className="relative">
@@ -56,16 +53,13 @@ export default function Login() {
             dengan metode SOAP dalam satu sistem terintegrasi.
           </p>
         </div>
-        <p className="text-xs text-slate-500 relative">© 2026 Klinik Pratama · Sistem Informasi Klinik</p>
+        <p className="text-xs text-slate-500 relative">Sistem Informasi Klinik</p>
       </div>
 
-      {/* Right form */}
       <div className="flex items-center justify-center p-6 sm:p-12">
         <div className="w-full max-w-md animate-fade-up">
           <div className="lg:hidden flex items-center gap-3 mb-8">
-            <div className="h-10 w-10 rounded-xl bg-sky-500 flex items-center justify-center">
-              <HeartPulse className="h-5 w-5 text-white" />
-            </div>
+            <img src="/inova192.png" alt="Klinik Pratama Logo" className="h-10 w-10 rounded-xl object-contain" />
             <span className="font-heading font-bold text-lg text-slate-900">Klinik Pratama</span>
           </div>
 

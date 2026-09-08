@@ -2,7 +2,10 @@
 
 
 
-Aplikasi berbasis web untuk membantu proses administrasi dan pelayanan pasien pada klinik pratama secara terintegrasi — mulai dari pengelolaan data pasien, pendaftaran kunjungan, antrean, hingga pencatatan hasil pemeriksaan dokter (metode SOAP).
+Aplikasi berbasis web untuk membantu proses administrasi dan pelayanan pasien 
+-pengelolaan data pasien
+-pendaftaran kunjungan dan antrean
+-pencatatan hasil pemeriksaan dokter (metode SOAP)
 
 ## Fitur Utama
 

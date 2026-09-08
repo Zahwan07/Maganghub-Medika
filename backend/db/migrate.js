@@ -1,5 +1,5 @@
 /**
- * Migrate: buat database (jika belum ada) lalu jalankan db/schema.sql
+ * Migrate: buat database 
  * Usage: npm run migrate
  */
 require('dotenv').config();

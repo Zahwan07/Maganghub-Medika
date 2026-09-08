@@ -53,10 +53,9 @@ export default function AppLayout({ children }) {
               to={n.to}
               data-testid={`nav-${n.to.slice(1)}`}
               className={({ isActive }) =>
-                `px-4 py-2.5 rounded-lg flex items-center space-x-3 transition-colors ${
-                  isActive
-                    ? "bg-slate-800 text-white font-medium"
-                    : "text-slate-400 hover:text-slate-100 hover:bg-slate-800/50"
+                `px-4 py-2.5 rounded-lg flex items-center space-x-3 transition-colors ${isActive
+                  ? "bg-slate-800 text-white font-medium"
+                  : "text-slate-400 hover:text-slate-100 hover:bg-slate-800/50"
                 }`
               }
             >
