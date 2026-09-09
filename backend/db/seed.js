@@ -85,7 +85,9 @@ async function seed() {
     const regs = [
       { patient_id: 1, doctor_id: drBudi, poli_id: poliUmum.id, payment: 'BPJS', complaint: 'Demam dan batuk 3 hari', status: 'menunggu' },
       { patient_id: 2, doctor_id: drBudi, poli_id: poliUmum.id, payment: 'Umum', complaint: 'Sakit kepala', status: 'menunggu' },
+      { patient_id: 3, doctor_id: drBudi, poli_id: poliUmum.id, payment: 'BPJS', complaint: 'Flu', status: 'menunggu' },
       { patient_id: 4, doctor_id: drSari, poli_id: poliGigi.id, payment: 'Umum', complaint: 'Gigi berlubang nyeri', status: 'menunggu' },
+      
     ];
     const counters = {};
     for (const r of regs) {

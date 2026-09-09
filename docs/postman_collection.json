@@ -1,0 +1,192 @@
+{
+  "info": {
+    "name": "Mini Clinic Information System",
+    "description": "REST API collection untuk Mini Clinic Information System (Klinik Pratama). Jalankan 'Login' terlebih dahulu; token JWT akan otomatis tersimpan ke variabel {{token}}.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8001/api" },
+    { "key": "token", "value": "" }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [{ "key": "token", "value": "{{token}}", "type": "string" }]
+  },
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "var res = pm.response.json();",
+                  "if (res.success && res.data && res.data.token) {",
+                  "  pm.collectionVariables.set('token', res.data.token);",
+                  "  console.log('Token saved');",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "auth": { "type": "noauth" },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\"\n}" },
+            "url": { "raw": "{{baseUrl}}/login", "host": ["{{baseUrl}}"], "path": ["login"] }
+          }
+        },
+        {
+          "name": "Me",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/me", "host": ["{{baseUrl}}"], "path": ["me"] } }
+        },
+        {
+          "name": "Logout",
+          "request": { "method": "POST", "url": { "raw": "{{baseUrl}}/logout", "host": ["{{baseUrl}}"], "path": ["logout"] } }
+        }
+      ]
+    },
+    {
+      "name": "Patients",
+      "item": [
+        {
+          "name": "List Patients",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/patients?page=1&limit=10&search=&gender=", "host": ["{{baseUrl}}"], "path": ["patients"], "query": [{"key":"page","value":"1"},{"key":"limit","value":"10"},{"key":"search","value":""},{"key":"gender","value":""}] } }
+        },
+        {
+          "name": "Get Patient",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/patients/1", "host": ["{{baseUrl}}"], "path": ["patients", "1"] } }
+        },
+        {
+          "name": "Create Patient",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"nik\": \"3271010101990099\",\n  \"name\": \"Pasien Baru\",\n  \"gender\": \"L\",\n  \"birth_date\": \"1999-01-01\",\n  \"phone\": \"081200000000\",\n  \"address\": \"Jl. Contoh No. 1\"\n}" },
+            "url": { "raw": "{{baseUrl}}/patients", "host": ["{{baseUrl}}"], "path": ["patients"] }
+          }
+        },
+        {
+          "name": "Update Patient",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"phone\": \"081211112222\",\n  \"address\": \"Alamat diperbarui\"\n}" },
+            "url": { "raw": "{{baseUrl}}/patients/1", "host": ["{{baseUrl}}"], "path": ["patients", "1"] }
+          }
+        },
+        {
+          "name": "Delete Patient",
+          "request": { "method": "DELETE", "url": { "raw": "{{baseUrl}}/patients/1", "host": ["{{baseUrl}}"], "path": ["patients", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Registrations",
+      "item": [
+        {
+          "name": "List Registrations",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/registrations?status=&poli_id=", "host": ["{{baseUrl}}"], "path": ["registrations"], "query": [{"key":"status","value":""},{"key":"poli_id","value":""}] } }
+        },
+        {
+          "name": "Create Registration",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"patient_id\": 1,\n  \"doctor_id\": 2,\n  \"poli_id\": 1,\n  \"payment_type\": \"BPJS\",\n  \"complaint\": \"Demam\"\n}" },
+            "url": { "raw": "{{baseUrl}}/registrations", "host": ["{{baseUrl}}"], "path": ["registrations"] }
+          }
+        },
+        {
+          "name": "Update Registration",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"check_in\"\n}" },
+            "url": { "raw": "{{baseUrl}}/registrations/1", "host": ["{{baseUrl}}"], "path": ["registrations", "1"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Queues",
+      "item": [
+        {
+          "name": "List Queues",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/queues?poli_id=&status=", "host": ["{{baseUrl}}"], "path": ["queues"], "query": [{"key":"poli_id","value":""},{"key":"status","value":""}] } }
+        },
+        {
+          "name": "Create Queue",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"registration_id\": 1\n}" },
+            "url": { "raw": "{{baseUrl}}/queues", "host": ["{{baseUrl}}"], "path": ["queues"] }
+          }
+        },
+        {
+          "name": "Call Queue",
+          "request": { "method": "PUT", "url": { "raw": "{{baseUrl}}/queues/1/call", "host": ["{{baseUrl}}"], "path": ["queues", "1", "call"] } }
+        },
+        {
+          "name": "Update Queue Status",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"selesai\"\n}" },
+            "url": { "raw": "{{baseUrl}}/queues/1/status", "host": ["{{baseUrl}}"], "path": ["queues", "1", "status"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Medical Records",
+      "item": [
+        {
+          "name": "Create Medical Record (SOAP)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"registration_id\": 1,\n  \"subjective\": \"Demam dan batuk\",\n  \"blood_pressure\": \"120/80\",\n  \"temperature\": 37.8,\n  \"weight\": 60,\n  \"height\": 165,\n  \"pulse\": 88,\n  \"diagnosis\": \"ISPA\",\n  \"therapy_plan\": \"Istirahat cukup, obat simptomatik\",\n  \"actions\": [{ \"action_name\": \"Nebulizer\", \"notes\": \"1x\" }]\n}" },
+            "url": { "raw": "{{baseUrl}}/medical-records", "host": ["{{baseUrl}}"], "path": ["medical-records"] }
+          }
+        },
+        {
+          "name": "Get Patient History",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/medical-records/1", "host": ["{{baseUrl}}"], "path": ["medical-records", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Prescriptions",
+      "item": [
+        {
+          "name": "Create Prescription",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"medical_record_id\": 1,\n  \"notes\": \"Habiskan antibiotik\",\n  \"items\": [\n    { \"drug_name\": \"Paracetamol\", \"dosage\": \"500mg\", \"instruction\": \"3x1 sesudah makan\", \"quantity\": 10 }\n  ]\n}" },
+            "url": { "raw": "{{baseUrl}}/prescriptions", "host": ["{{baseUrl}}"], "path": ["prescriptions"] }
+          }
+        },
+        {
+          "name": "Get Prescription",
+          "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/prescriptions/1", "host": ["{{baseUrl}}"], "path": ["prescriptions", "1"] } }
+        }
+      ]
+    },
+    {
+      "name": "Master & Dashboard",
+      "item": [
+        { "name": "Doctors", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/doctors", "host": ["{{baseUrl}}"], "path": ["doctors"] } } },
+        { "name": "Polis", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/polis", "host": ["{{baseUrl}}"], "path": ["polis"] } } },
+        { "name": "Dashboard Stats", "request": { "method": "GET", "url": { "raw": "{{baseUrl}}/dashboard/stats", "host": ["{{baseUrl}}"], "path": ["dashboard", "stats"] } } }
+      ]
+    }
+  ]
+}
