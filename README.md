@@ -4,8 +4,7 @@ Aplikasi berbasis web untuk membantu proses administrasi dan pelayanan pasien pa
 
 ## Link Video Demonstrasi
 
-https://youtu.be/0YDrijoHL7I
-
+https://drive.google.com/drive/folders/1I1nYF2wzaFoqwcujtncGRQZOTGJj0b_i?usp=drive_link
 
 ## Fitur Utama
 
@@ -22,7 +21,7 @@ https://youtu.be/0YDrijoHL7I
 |---|---|
 | Frontend | (React.js CRA + TailwindCSS + shadcn/ui) |
 | Backend | (Node.js (Express.js)) |
-| Database | (MySQL / MariaDB) |
+| Database | (MySQL) |
 | Auth | (JSON Web Token (JWT) + bcryptjs) |
 
 ## Struktur Project
