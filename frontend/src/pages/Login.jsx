@@ -60,7 +60,7 @@ export default function Login() {
         <div className="w-full max-w-md animate-fade-up">
           <div className="lg:hidden flex items-center gap-3 mb-8">
             <img src="/inova192.png" alt="Klinik Pratama Logo" className="h-10 w-10 rounded-xl object-contain" />
-            <span className="font-heading font-bold text-lg text-slate-900">Klinik Pratama</span>
+            <span className="font-heading font-bold text-lg text-slate-900"></span>
           </div>
 
           <h2 className="font-heading text-2xl font-bold text-slate-900">Masuk ke Sistem</h2>

@@ -37,11 +37,9 @@ export default function AppLayout({ children }) {
       {/* Sidebar */}
       <aside className="w-64 bg-slate-900 text-slate-300 flex flex-col h-screen fixed left-0 top-0 z-30 shadow-xl border-r border-slate-800">
         <div className="px-6 py-5 border-b border-slate-800 flex items-center space-x-3">
-          <div className="h-10 w-10 rounded-xl bg-sky-500 flex items-center justify-center shadow-lg">
-            <HeartPulse className="h-6 w-6 text-white" />
-          </div>
+          <img src="/inova192.png" alt="Inova Medika Logo" className="h-10 w-10 rounded-xl object-contain" />
           <div>
-            <p className="font-heading font-bold text-white text-base leading-tight">Klinik Pratama</p>
+            <p className="font-heading font-bold text-white text-base leading-tight">Inova Medika</p>
             <p className="text-xs text-slate-400">Information System</p>
           </div>
         </div>

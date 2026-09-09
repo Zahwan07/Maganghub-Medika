@@ -44,7 +44,7 @@ async function seed() {
     password: process.env.ADMIN_PASSWORD || 'admin123',
     role: 'admin',
   });
-  const drBudi = await upsertUser({
+  const drRica = await upsertUser({
     name: 'dr. Rica Octaviyani', username: 'dokter', password: 'dokter123', role: 'dokter', poli_id: poliUmum?.id || null,
   });
   const drSari = await upsertUser({
@@ -83,9 +83,9 @@ async function seed() {
     console.log('» Seeding pendaftaran & antrean hari ini...');
     const today = new Date().toISOString().slice(0, 10);
     const regs = [
-      { patient_id: 1, doctor_id: drBudi, poli_id: poliUmum.id, payment: 'BPJS', complaint: 'Demam dan batuk 3 hari', status: 'menunggu' },
-      { patient_id: 2, doctor_id: drBudi, poli_id: poliUmum.id, payment: 'Umum', complaint: 'Sakit kepala', status: 'menunggu' },
-      { patient_id: 3, doctor_id: drBudi, poli_id: poliUmum.id, payment: 'BPJS', complaint: 'Flu', status: 'menunggu' },
+      { patient_id: 1, doctor_id: drRica, poli_id: poliUmum.id, payment: 'BPJS', complaint: 'Demam dan batuk 3 hari', status: 'menunggu' },
+      { patient_id: 2, doctor_id: drRica, poli_id: poliUmum.id, payment: 'Umum', complaint: 'Sakit kepala', status: 'menunggu' },
+      { patient_id: 3, doctor_id: drRica, poli_id: poliUmum.id, payment: 'BPJS', complaint: 'Flu', status: 'menunggu' },
       { patient_id: 4, doctor_id: drSari, poli_id: poliGigi.id, payment: 'Umum', complaint: 'Gigi berlubang nyeri', status: 'menunggu' },
       
     ];

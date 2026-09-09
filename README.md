@@ -2,6 +2,11 @@
 
 Aplikasi berbasis web untuk membantu proses administrasi dan pelayanan pasien pada klinik pratama secara terintegrasi — mulai dari pengelolaan data pasien, pendaftaran kunjungan, antrean, hingga pencatatan hasil pemeriksaan dokter (metode SOAP).
 
+## Link Video Demonstrasi
+
+https://youtu.be/0YDrijoHL7I
+
+
 ## Fitur Utama
 
 - **Authentication (JWT)** 3 role: `Administrator`, `Dokter`, `Petugas Pendaftaran` + otorisasi berbasis role.
@@ -15,10 +20,10 @@ Aplikasi berbasis web untuk membantu proses administrasi dan pelayanan pasien pa
 
 | Komponen | Teknologi |
 |---|---|
-| Frontend (React.js CRA + TailwindCSS + shadcn/ui)
-| Backend  (Node.js (Express.js))
-| Database (MySQL / MariaDB)
-| Auth (JSON Web Token (JWT) + bcryptjs)
+| Frontend | (React.js CRA + TailwindCSS + shadcn/ui) |
+| Backend | (Node.js (Express.js)) |
+| Database | (MySQL / MariaDB) |
+| Auth | (JSON Web Token (JWT) + bcryptjs) |
 
 ## Struktur Project
 
