@@ -118,5 +118,3 @@ erDiagram
 | MEDICAL_RECORDS → MEDICAL_ACTIONS | 1 : N | Tindakan medis pada satu pemeriksaan |
 | MEDICAL_RECORDS → PRESCRIPTIONS | 1 : N | Resep pada satu pemeriksaan |
 | PRESCRIPTIONS → PRESCRIPTION_ITEMS | 1 : N | Detail obat pada satu resep |
-
-> Tip: Tempelkan blok Mermaid di atas ke https://mermaid.live untuk melihat/ekspor diagram sebagai gambar.
